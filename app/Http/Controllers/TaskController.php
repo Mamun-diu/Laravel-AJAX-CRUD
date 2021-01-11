@@ -14,8 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $task = Task::all();
-        return view('welcome')->with('tasts',$task);
+        $task = Task::orderByDesc("id")->get();
+        return view('welcome')->with('tasks',$task);
     }
 
     /**
@@ -36,7 +36,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+
+        ]);
+
+        $task = new Task;
+        $task->name = $request->name;
+        $task->save();
+        return response()->json($task, 200);
     }
 
     /**
