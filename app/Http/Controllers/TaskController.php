@@ -64,9 +64,10 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit($id)
     {
-        //
+        $edit = Task::find($id);
+        return response()->json($edit);
     }
 
     /**
@@ -76,9 +77,12 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->name = $request->name;
+        $task->save();
+        return response()->json($task);
     }
 
     /**
@@ -87,8 +91,13 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        //
+        $task = Task::destroy($id);
+        if($task){
+            return response()->json($task, 200);
+        }else{
+            return "Something went wrong";
+        }
     }
 }

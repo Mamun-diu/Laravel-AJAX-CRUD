@@ -19,3 +19,4 @@ Route::get('/', [TaskController::class, 'index']);
 Route::post('/task/store', [TaskController::class, 'store']);
 Route::post('/task/update/{id}', [TaskController::class, 'update']);
 Route::get('/task/delete/{id}', [TaskController::class, 'destroy']);
+Route::get('/task/edit/{id}', [TaskController::class, 'edit']);
